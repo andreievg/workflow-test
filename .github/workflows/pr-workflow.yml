@@ -1,0 +1,26 @@
+name: PR Workflow
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run some tests
+        run: |
+          echo "Running tests..."
+          echo "Tests passed!"
+      
+      # Save PR number for workflow_run to use
+      - name: Save PR data
+        run: |
+          mkdir -p ./pr
+          echo ${{ github.event.number }} > ./pr/pr_number
+          echo "✅ All tests passed at $(date)" > ./pr/result.txt
+      
+      # Upload artifact
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pr-artifact
+          path: pr/

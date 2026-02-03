@@ -1,0 +1,2 @@
+This is a sample file.
+You can modify this to test the PR workflow.
